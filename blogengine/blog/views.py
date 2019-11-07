@@ -4,6 +4,7 @@ from django.views.generic import View
 
 from .models import Post, Tag
 from .utils import ObjectDetailMixin
+from .forms import TagForm
 
 # Create your views here.
 def posts_list(request):
@@ -16,14 +17,18 @@ class PostDetail(ObjectDetailMixin, View):
     template = 'blog/post_detail.html'
 
 
-def tags_list(request):
-    tags = Tag.objects.all()
-    return render(request, 'blog/tags_list.html', context={'tags': tags})
-
-
 class TagDetail(ObjectDetailMixin, View):
     model = Tag
     template = 'blog/tag_detail.html'
+
+class TagCreate(View):
+    def get(self, request):
+        form = TagForm()
+        return render(request, 'blog/tag_create.html', context={'form': form})
+
+def tags_list(request):
+    tags = Tag.objects.all()
+    return render(request, 'blog/tags_list.html', context={'tags': tags})
 
 
 

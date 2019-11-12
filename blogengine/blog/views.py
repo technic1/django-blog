@@ -12,7 +12,6 @@ def posts_list(request):
     posts = Post.objects.all()
     return render(request, 'blog/index.html', context = {"posts": posts})
 
-
 class PostDetail(ObjectDetailMixin, View):
     model = Post
     template = 'blog/post_detail.html'
